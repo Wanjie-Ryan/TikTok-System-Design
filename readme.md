@@ -1,6 +1,6 @@
 # TikTok System Design
 **1. High level overview**
-- Millions of concurrent users.
+- Millions of concurrent users..
 - Real time video uploads and playback.
 - Highly personalized recommendations.
 - Seamless global delivery.
