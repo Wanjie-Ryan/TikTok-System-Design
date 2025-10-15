@@ -9,8 +9,8 @@
 
 - The key system design goals are: **Low latency, massive scalability, realtime egagement**
 
-
 **Functional Requirements**
+
 1. User profile
 2. View video
 3. Upload video
@@ -19,16 +19,13 @@
 6. Follow user
 7. Live streaming
 
-
 **Non-functional Requirements**
+
 1. Security
 2. Storage
 3. Performance
 4. Latency
 5. Scalable
-
-
-
 
 **2. Core system components**
 
@@ -53,6 +50,7 @@
 - DB is updated with video record and features
 
 **Feed Path**
+
 - User opens the app
 - Feed service calls recommendation engine
 - List of video IDs returned
@@ -60,11 +58,13 @@
 - App renders video
 
 **4. CDN**
+
 - Store static chunks of video
 - Reduce latency
 - They use **Adaptive Birate Streaming (ABR)** based on your network, the app loads higher/lower quality video.
 
 **5. Recommendation Engine**
+
 - Watch time
 - Likes
 - Replays
@@ -73,16 +73,25 @@
 - Skip behaviour
 
 **Multi-stage Pipeline**
+
 1. Candidate generation
+
 - narrow down from millions to thousands using collaborative filtering.
-2. Filtering 
+
+2. Filtering
+
 - Rule-based removal (nudity, banned topics)
+
 3. Ranking model
+
 - Deep learning score videos for this user.
+
 4. Re-ranking/Diversity
+
 - Inject variety, promote trends, don't show duplicates.
 
 **Database Design**
+
 - UserData - MySQL
 - Video metadata - Cassandra
 - Media storage - S3-compatible object storage
@@ -90,8 +99,24 @@
 - Real time stats - Redis
 
 **FANOUT**
+
 - It describes how content is distributed to multiple consumers - how a new video gets delivered to potentially millions of users feeds.
 - Distributes one piece of content to many users.
 
+**Fanout Models**
 
+- Two main types of fanout patterns
 
+1. Fanout on write (Push model)
+
+- When content is created, it is pushed to all followers immediately.
+- Used by X
+- Fast read times (feeds load fast)
+- Costly write ops if user has millions of followers.
+
+2. Fanout on Read (Pull Model)
+
+- When user opens the app, the backend pulls fresh content for them from creators they follow
+- Used by IG and TikTok
+- Efficient for users with many follows.
+- Slower read time, heavier backend query.
