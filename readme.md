@@ -120,3 +120,13 @@
 - Used by IG and TikTok
 - Efficient for users with many follows.
 - Slower read time, heavier backend query.
+
+
+---------------------------------------------
+
+# Challenges
+1. Ingestion
+2. Storage
+3. Distribution
+
+
